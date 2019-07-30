@@ -1,0 +1,15 @@
+extends layouts/main
+
+block content
+    .container
+        div.generate
+            input.isAdult(type="checkbox")
+            button.generateBtn generate
+            input.generateText(type="text", readonly="true")
+        a.addFwords(href=routes.addWords) 
+            button add F words
+        .report
+            h5 Did you get a strange words?
+            form(action=routes.report, method="POST")
+                input(type="hidden", id="reportWords", name="reportWords")
+                button Report current words
