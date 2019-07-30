@@ -3,6 +3,7 @@ extends layouts/main
 block content
     .form-container
         form.addWords(action=routes.addWords, method="post")
+            label(for=addWords) Add Words
             input.fword(type="text" id="addWords", name="addWords")
             input(type="submit")
             

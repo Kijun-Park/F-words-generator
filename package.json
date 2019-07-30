@@ -7,7 +7,7 @@
   "author": "KiJun Park <ekdlwns3685@naver.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon --exec babel-node app.js --delay 1"
+    "start": "./node_modules/.bin/babel src --out-dir static && nodemon --exec babel-node app.js --delay 1"
   },
   "dependencies": {
     "@babel/node": "^7.5.5",

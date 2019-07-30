@@ -1,14 +1,14 @@
 extends layouts/main
 
 block content
-    .container
-        div.generate
-            input.isAdult(type="checkbox")
-            button.generateBtn generate
-            input.generateText(type="text", readonly="true")
-        a.addFwords(href=routes.addWords) 
+    div(id="container")
+        div(id="generate")
+            form(action=routes.home, method="POST")
+                button(id="generateBtn") generate
+            input(type="text", readonly="true", id='generateText', value=words)
+        a(href=routes.addWords, id="addFwords") 
             button add F words
-        .report
+        div(id="report")
             h5 Did you get a strange words?
             form(action=routes.report, method="POST")
                 input(type="hidden", id="reportWords", name="reportWords")
