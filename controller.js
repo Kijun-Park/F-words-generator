@@ -6,11 +6,10 @@ export const home = (req, res) => {
 };
 
 export const generateWords = (req, res) => {
-  const num = Math.floor(Math.random() * db.length);
-  console.log(num);
-  res.render("home", {
-    words: db[num].word
-  });
+  // const num = Math.floor(Math.random() * db.length);
+  // res.render("home", {
+  //   words: db[num].word
+  // });
 };
 
 export const getAddWords = (req, res) => {
