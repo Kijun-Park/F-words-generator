@@ -1,5 +1,6 @@
-import alert from "alert-node";
 import Words from "./model/Words";
+import Added from "./model/Added";
+import Report from "./model/Reports";
 import routes from "./routes";
 import db from "./db";
 
@@ -29,13 +30,24 @@ export const postAddWords = async (req, res) => {
     body: { addWords }
   } = req;
 
-  const newWords = await Words.create({
-    words: addWords
-  });
-  alert("Thank you for adding the word.");
+  if ((await Added.exists({ words: addWords })) === false) {
+    const newAdd = await Added.create({
+      words: addWords
+    });
+  }
+
   res.redirect(routes.home);
 };
 
-export const postReport = (req, res) => {
-  console.log(req.body);
+export const postReport = async (req, res) => {
+  const {
+    body: { reportWords }
+  } = req;
+  if ((await Report.exists({ words: reportWords })) === false) {
+    const newReport = await Report.create({
+      words: reportWords
+    });
+  }
+
+  res.redirect(routes.home);
 };

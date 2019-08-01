@@ -11,5 +11,5 @@ block content
         div(id="report")
             h5 Did you get a strange words?
             form(action=routes.report, method="POST")
-                input(type="hidden", id="reportWords", name="reportWords")
+                input(type="hidden", id="reportWords", name="reportWords", value=words)
                 button Report current words
