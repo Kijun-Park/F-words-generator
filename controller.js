@@ -77,6 +77,7 @@ export const postAdmin = async (req, res) => {
       await Words.create({
         words: adds
       });
+
       await Added.findOneAndRemove(adds);
     }
     if (reports) {
