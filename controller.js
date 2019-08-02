@@ -51,3 +51,42 @@ export const postReport = async (req, res) => {
 
   res.redirect(routes.home);
 };
+
+export const getAdmin = async (req, res) => {
+  try {
+    const adds = await Added.find({});
+    const reports = await Report.find({});
+    res.render("admin", { pageTitle: "admin", adds, reports });
+  } catch (error) {
+    console.log(error);
+    res.render("admin", { pageTitle: "admin", adds: [], reports: [] });
+  }
+};
+
+export const postAdmin = async (req, res) => {
+  const {
+    body: { isDelete: reports, isAdd: adds }
+  } = req;
+
+  if (!reports && !adds) {
+    res.redirect(routes.admin);
+  }
+
+  try {
+    if (adds) {
+      await Words.create({
+        words: adds
+      });
+      await Added.findOneAndRemove(adds);
+    }
+    if (reports) {
+      await Words.findOneAndRemove(reports);
+      await Report.findOneAndRemove(reports);
+    }
+
+    res.redirect(routes.admin);
+  } catch (error) {
+    console.log(error);
+    res.redirect(routes.admin);
+  }
+};

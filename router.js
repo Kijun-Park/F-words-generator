@@ -5,7 +5,9 @@ import {
   getAddWords,
   postAddWords,
   postReport,
-  generateWords
+  generateWords,
+  postAdmin,
+  getAdmin
 } from "./controller";
 
 const router = express.Router();
@@ -15,5 +17,8 @@ router.post(routes.home, generateWords);
 router.get(routes.addWords, getAddWords);
 router.post(routes.addWords, postAddWords);
 router.post(routes.report, postReport);
+
+router.get(routes.admin, getAdmin);
+router.post(routes.admin, postAdmin);
 
 export default router;

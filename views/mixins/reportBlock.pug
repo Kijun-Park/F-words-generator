@@ -1,0 +1,4 @@
+mixin reportBlock(reports = {})
+        li.report
+            input(type="checkbox", name="isDelete",id="isDelete" value=reports.words)
+            label(for="isDelete")=reports.words

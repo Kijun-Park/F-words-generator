@@ -1,0 +1,20 @@
+extends layouts/main
+include mixins/addBlock
+include mixins/reportBlock
+
+block content
+    .container
+        form(action=routes.admin, method="POST")
+            h4 Requested words
+            ul
+                each add in adds
+                    +addBlock({
+                        words:add.words
+                    })
+            h4 Reported words
+            ul
+                each report in reports
+                    +reportBlock({
+                        words:report.words
+                    })
+            input(type="submit")

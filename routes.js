@@ -1,7 +1,8 @@
 const routes = {
   home: "/",
   addWords: "/add-words",
-  report: "/report"
+  report: "/report",
+  admin: "/admin"
 };
 
 export default routes;
