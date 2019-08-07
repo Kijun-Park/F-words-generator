@@ -74,11 +74,15 @@ export const postAdmin = async (req, res) => {
 
   try {
     if (adds) {
-      await Words.create({
-        words: adds
-      });
-
-      await Added.findOneAndRemove(adds);
+      console.log(Words.findOne(adds));
+      if (Array.isArray(adds)) {
+        adds.map(async item => {
+          await Words.create({
+            words: item
+          });
+          await Added.findOneAndRemove(item);
+        });
+      }
     }
     if (reports) {
       await Words.findOneAndRemove(reports);
