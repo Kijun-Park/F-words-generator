@@ -1,0 +1,4 @@
+mixin wordBlock(words = {})
+        li.word
+            input(type="checkbox", name="isWord",id="isWord" value=words.words)
+            label(for="isWord")=words.words

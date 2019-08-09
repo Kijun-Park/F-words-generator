@@ -56,10 +56,17 @@ export const getAdmin = async (req, res) => {
   try {
     const adds = await Added.find({});
     const reports = await Report.find({});
-    res.render("admin", { pageTitle: "admin", adds, reports });
+    const words = await Words.find({});
+
+    res.render("admin", { pageTitle: "admin", adds, reports, words });
   } catch (error) {
     console.log(error);
-    res.render("admin", { pageTitle: "admin", adds: [], reports: [] });
+    res.render("admin", {
+      pageTitle: "admin",
+      adds: [],
+      reports: [],
+      words: []
+    });
   }
 };
 
@@ -82,11 +89,24 @@ export const postAdmin = async (req, res) => {
           });
           await Added.findOneAndRemove(item);
         });
+      } else {
+        await Words.create({
+          words: adds
+        });
+        await Added.findOneAndRemove(adds);
       }
     }
     if (reports) {
-      await Words.findOneAndRemove(reports);
-      await Report.findOneAndRemove(reports);
+      console.log(Words.findOne(reports));
+      if (Array.isArray(reports)) {
+        reports.map(async item => {
+          await Report.findOneAndRemove(item);
+          await Words.findOneAndRemove(item);
+        });
+      } else {
+        await Report.findOneAndRemove(reports);
+        await Words.findOneAndRemove(reports);
+      }
     }
 
     res.redirect(routes.admin);
