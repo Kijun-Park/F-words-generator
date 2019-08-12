@@ -11,6 +11,9 @@ export const home = (req, res) => {
 export const generateWords = async (req, res) => {
   try {
     const terms = await Words.find({});
+    if (terms.length === 0) {
+      res.redirect(routes.home);
+    }
     const num = Math.floor(Math.random() * terms.length);
     const words = terms[num].words;
 
@@ -52,6 +55,14 @@ export const postReport = async (req, res) => {
   res.redirect(routes.home);
 };
 
+export const getLogin = (req, res) => {
+  res.render("login", { pageTitle: "Admin Login" });
+};
+
+export const postLogin = (req, res) => {
+  res.redirect(routes.admin);
+};
+
 export const getAdmin = async (req, res) => {
   try {
     const adds = await Added.find({});
@@ -72,43 +83,71 @@ export const getAdmin = async (req, res) => {
 
 export const postAdmin = async (req, res) => {
   const {
-    body: { isDelete: reports, isAdd: adds }
+    body: { isDelete: reports, isAdd: adds, isWord: words }
   } = req;
 
-  if (!reports && !adds) {
+  if (!reports && !adds && !words) {
     res.redirect(routes.admin);
   }
 
   try {
     if (adds) {
-      console.log(Words.findOne(adds));
-      if (Array.isArray(adds)) {
-        adds.map(async item => {
-          await Words.create({
-            words: item
+      if (req.body.delete) {
+        if (Array.isArray(adds)) {
+          adds.map(async item => {
+            console.log(Added.findOne(item));
+            await Added.findOneAndRemove(item);
           });
-          await Added.findOneAndRemove(item);
-        });
+        } else {
+          await Added.findOneAndRemove(adds);
+        }
       } else {
-        await Words.create({
-          words: adds
-        });
-        await Added.findOneAndRemove(adds);
-      }
-    }
-    if (reports) {
-      console.log(Words.findOne(reports));
-      if (Array.isArray(reports)) {
-        reports.map(async item => {
-          await Report.findOneAndRemove(item);
-          await Words.findOneAndRemove(item);
-        });
-      } else {
-        await Report.findOneAndRemove(reports);
-        await Words.findOneAndRemove(reports);
+        if (Array.isArray(adds)) {
+          adds.map(async item => {
+            await Words.create({
+              words: item
+            });
+            await Added.findOneAndRemove(item);
+          });
+        } else {
+          await Words.create({
+            words: adds
+          });
+          await Added.findOneAndRemove(adds);
+        }
       }
     }
 
+    if (reports) {
+      if (req.body.delete) {
+        if (Array.isArray(reports)) {
+          reports.map(async item => {
+            await Report.findOneAndRemove(item);
+          });
+        } else {
+          await Report.findOneAndRemove(reports);
+        }
+      } else {
+        if (Array.isArray(reports)) {
+          reports.map(async item => {
+            await Report.findOneAndRemove(item);
+            await Words.findOneAndRemove(item);
+          });
+        } else {
+          await Report.findOneAndRemove(reports);
+          await Words.findOneAndRemove(reports);
+        }
+      }
+    }
+    if (words) {
+      if (Array.isArray(words)) {
+        words.map(async item => {
+          await Words.findOneAndRemove(item);
+        });
+      } else {
+        await Words.findOneAndRemove(words);
+      }
+    }
     res.redirect(routes.admin);
   } catch (error) {
     console.log(error);

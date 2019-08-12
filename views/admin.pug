@@ -12,16 +12,24 @@ block content
                     +addBlock({
                         words:add.words
                     })
+            input(type="submit", value="confirm", name="confirm")
+            input(type="submit", value="delete", name="delete")
+
+        form(action=routes.admin, method="POST")
             h4 Reported words list
             ul
                 each report in reports
                     +reportBlock({
                         words:report.words
                     })
+            input(type="submit", value="confirm", name="confirm")
+            input(type="submit", value="delete", name="delete")
+
+        form(action=routes.admin, method="POST")
             h4 Current words list
             ul
                 each word in words
                     +wordBlock({
                         words:word.words
                     })
-            input(type="submit")
+            input(type="submit", value="delete", name="delete")

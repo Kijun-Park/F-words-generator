@@ -1,0 +1,10 @@
+extends layouts/main
+
+block content
+    div(id="container")
+        form(action=routes.login, method="POST")
+            label(for=id) ID
+            input(type="text" id="id", name="id")
+            label(for=Password) Password
+            input(type="text" id="Password", name="Password")
+            input(type="submit")
