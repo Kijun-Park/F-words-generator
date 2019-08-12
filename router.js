@@ -9,7 +9,8 @@ import {
   postAdmin,
   getAdmin,
   getLogin,
-  postLogin
+  postLogin,
+  logout
 } from "./controller";
 
 const router = express.Router();
@@ -24,6 +25,8 @@ router.post(routes.report, postReport);
 
 router.get(routes.login, getLogin);
 router.post(routes.login, postLogin);
+
+router.get(routes.logout, logout);
 
 router.get(routes.admin, getAdmin);
 router.post(routes.admin, postAdmin);

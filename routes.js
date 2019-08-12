@@ -3,7 +3,8 @@ const routes = {
   addWords: "/add-words",
   report: "/report",
   admin: "/admin",
-  login: "/login"
+  login: "/login",
+  logout: "/logout"
 };
 
 export default routes;

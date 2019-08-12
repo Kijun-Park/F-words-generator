@@ -1,3 +1,4 @@
+import cookie from "cookie-parser";
 import Words from "./model/Words";
 import Added from "./model/Added";
 import Report from "./model/Reports";
@@ -56,14 +57,35 @@ export const postReport = async (req, res) => {
 };
 
 export const getLogin = (req, res) => {
-  res.render("login", { pageTitle: "Admin Login" });
+  if (req.cookies.isLoggedIn) {
+    res.redirect(routes.admin);
+  } else {
+    res.render("login", { pageTitle: "Admin Login" });
+  }
 };
 
 export const postLogin = (req, res) => {
-  res.redirect(routes.admin);
+  const {
+    body: { id, password }
+  } = req;
+  if (id === process.env.ADMIN_ID && password === process.env.ADMIN_PASSWORD) {
+    res.cookie("isLoggedIn", true);
+    res.redirect(routes.admin);
+  } else {
+    res.redirect(routes.login);
+  }
+};
+
+export const logout = (req, res) => {
+  console.log(req.cookies);
+  res.clearCookie("isLoggedIn");
+  res.redirect(routes.home);
 };
 
 export const getAdmin = async (req, res) => {
+  if (!req.cookies.isLoggedIn) {
+    res.redirect(routes.login);
+  }
   try {
     const adds = await Added.find({});
     const reports = await Report.find({});
@@ -95,11 +117,10 @@ export const postAdmin = async (req, res) => {
       if (req.body.delete) {
         if (Array.isArray(adds)) {
           adds.map(async item => {
-            console.log(Added.findOne(item));
-            await Added.findOneAndRemove(item);
+            await Added.findOneAndRemove({ words: item });
           });
         } else {
-          await Added.findOneAndRemove(adds);
+          await Added.findOneAndRemove({ words: adds });
         }
       } else {
         if (Array.isArray(adds)) {
@@ -107,13 +128,13 @@ export const postAdmin = async (req, res) => {
             await Words.create({
               words: item
             });
-            await Added.findOneAndRemove(item);
+            await Added.findOneAndRemove({ words: item });
           });
         } else {
           await Words.create({
             words: adds
           });
-          await Added.findOneAndRemove(adds);
+          await Added.findOneAndRemove({ words: adds });
         }
       }
     }
@@ -122,30 +143,30 @@ export const postAdmin = async (req, res) => {
       if (req.body.delete) {
         if (Array.isArray(reports)) {
           reports.map(async item => {
-            await Report.findOneAndRemove(item);
+            await Report.findOneAndRemove({ words: item });
           });
         } else {
-          await Report.findOneAndRemove(reports);
+          await Report.findOneAndRemove({ words: reports });
         }
       } else {
         if (Array.isArray(reports)) {
           reports.map(async item => {
-            await Report.findOneAndRemove(item);
-            await Words.findOneAndRemove(item);
+            await Report.findOneAndRemove({ words: item });
+            await Words.findOneAndRemove({ words: item });
           });
         } else {
-          await Report.findOneAndRemove(reports);
-          await Words.findOneAndRemove(reports);
+          await Report.findOneAndRemove({ words: reports });
+          await Words.findOneAndRemove({ words: reports });
         }
       }
     }
     if (words) {
       if (Array.isArray(words)) {
         words.map(async item => {
-          await Words.findOneAndRemove(item);
+          await Words.findOneAndRemove({ words: item });
         });
       } else {
-        await Words.findOneAndRemove(words);
+        await Words.findOneAndRemove({ words });
       }
     }
     res.redirect(routes.admin);
