@@ -6,7 +6,7 @@ import routes from "./routes";
 import db from "./db";
 
 export const home = (req, res) => {
-  res.render("home", { pageTitle: "F word generator" });
+  res.render("home", { pageTitle: "Home" });
 };
 
 export const generateWords = async (req, res) => {
@@ -18,14 +18,14 @@ export const generateWords = async (req, res) => {
     const num = Math.floor(Math.random() * terms.length);
     const words = terms[num].words;
 
-    res.render("home", { pageTitle: "F word generator", words });
+    res.render("home", { pageTitle: "Home", words });
   } catch (error) {
     console.log(error);
   }
 };
 
 export const getAddWords = (req, res) => {
-  res.render("addWords", { pageTitle: "addWords" });
+  res.render("addWords", { pageTitle: "Add Words" });
 };
 
 export const postAddWords = async (req, res) => {

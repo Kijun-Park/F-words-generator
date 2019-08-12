@@ -26,6 +26,8 @@
   "devDependencies": {
     "@babel/cli": "^7.5.5",
     "@babel/core": "^7.5.5",
-    "@babel/preset-env": "^7.5.5"
+    "@babel/preset-env": "^7.5.5",
+    "gulp-clean": "^0.4.0",
+    "gulp-sass": "^4.0.2"
   }
 }
