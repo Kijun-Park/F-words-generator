@@ -2,10 +2,10 @@ html {
   margin: 0;
   padding: 0;
   width: 100%;
+  height: 100%;
   body {
     height: 100%;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
@@ -17,13 +17,13 @@ html {
     background: url("images/bgImage.jpg");
     background-size: cover;
     .container {
-      width: 80%;
+      width: 75%;
       height: 100%;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
-      background-color: rgba(white, 0.5);
+      background-color: rgba(#f7f1e3, 0.7);
     }
   }
 }
