@@ -5,7 +5,8 @@ html
         title Fgenerator | #{pageTitle}
         link(rel="stylesheet", href="/static/styles.css")
     body
-        include ../partials/header
-        main
-            block content
-        include ../partials/footer
+        .container
+            include ../partials/header
+            main
+                block content
+            include ../partials/footer
