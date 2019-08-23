@@ -3,7 +3,6 @@ import Words from "./model/Words";
 import Added from "./model/Added";
 import Report from "./model/Reports";
 import routes from "./routes";
-import db from "./db";
 
 export const home = (req, res) => {
   res.render("home", { pageTitle: "Home" });
@@ -17,7 +16,6 @@ export const generateWords = async (req, res) => {
     }
     const num = Math.floor(Math.random() * terms.length);
     const words = terms[num].words;
-
     res.render("home", { pageTitle: "Home", words });
   } catch (error) {
     console.log(error);

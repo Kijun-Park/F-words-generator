@@ -6,10 +6,11 @@ block content
             input(type="text", readonly="true", id='generateText', value=words)
             form.generate__btn(action=routes.home, method="POST")
                 button(id="generateBtn") Generate
-        a.addWords(href=routes.addWords, id="addFwords") 
-            button Add F words
-        .report
-            h5 Did you get a strange words?
-            form(action=routes.report, method="POST")
-                input(type="hidden", id="reportWords", name="reportWords", value=words)
-                button Report current words
+        .btns
+            a.addWords(href=routes.addWords, id="addFwords") 
+                button Add F words
+            .report
+                h5 Did you get a strange words?
+                form(action=routes.report, method="POST")
+                    input(type="hidden", id="reportWords", name="reportWords", value=words)
+                    button Report current words

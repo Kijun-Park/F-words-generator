@@ -8,6 +8,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: 100px;
     input {
       padding: 0;
       background: rgba(255, 255, 255, 0.7);
@@ -23,26 +24,46 @@
     }
     form {
       padding-bottom: 20px;
-      button {
-        all: unset;
-        border: 1px solid black;
-        //border-radius: 5px;
-        width: 100px;
-        height: 30px;
-        background-color: white;
-        background-color: rgba(255, 255, 255, 0.6);
-        text-align: center;
-        text-shadow: none;
-        color: black;
-        font-weight: 500;
-        transition: background-color 200ms ease-in-out;
-        &:hover {
-          background-color: white;
-          transition: all 100ms ease-in-out;
-          &:active {
-            border: 2px solid black;
-            height: 28px;
-          }
+    }
+  }
+  .generate form button,
+  .btns a button,
+  .btns .report form button {
+    all: unset;
+    border: 1px solid black;
+    //border-radius: 5px;
+    width: 100px;
+    height: 30px;
+    background-color: white;
+    background-color: rgba(255, 255, 255, 0.6);
+    text-align: center;
+    text-shadow: none;
+    color: black;
+    font-weight: 500;
+    transition: background-color 200ms ease-in-out;
+    &:hover {
+      background-color: white;
+      font-weight: bold;
+      transition: all 100ms ease-in-out;
+      &:active {
+        border: 2px solid black;
+        height: 28px;
+      }
+    }
+  }
+  .btns {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    .report {
+      display: flex;
+      align-items: center;
+      h5 {
+        font-size: 20px;
+      }
+      form {
+        button {
+          width: 150px;
         }
       }
     }
